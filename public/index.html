@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HDX Cloud | Claim Free Cloud Servers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .neon-glow { text-shadow: 0 0 15px rgba(0, 210, 255, 0.5), 0 0 30px rgba(157, 78, 221, 0.3); }
+    .glass-card { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .gradient-accent { background: linear-gradient(135deg, #00d2ff 0%, #9d4edd 100%); }
+    .gradient-border-focus:focus { border-color: #00d2ff; box-shadow: 0 0 0 2px rgba(0, 210, 255, 0.2); }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- Nav Bar Component -->
+  <nav class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2 font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 cursor-pointer" onclick="showView('home-view')">
+      ⚡ HDX CLOUD
+    </div>
+    <div class="flex space-x-6 text-sm text-slate-400">
+      <button onclick="showView('home-view')" class="hover:text-cyan-400 transition">Portal Home</button>
+      <button onclick="showView('anti-abuse-view')" class="hover:text-cyan-400 transition">Anti-Abuse Rules</button>
+      <button onclick="showView('admin-login-view')" class="text-xs border border-slate-800 px-3 py-1.5 rounded-md hover:bg-slate-900 transition">Admin Portal</button>
+    </div>
+  </nav>
+
+  <!-- Notification Banner -->
+  <div id="global-toast" class="hidden fixed bottom-5 right-5 z-50 px-5 py-3 rounded-xl glass-card text-sm shadow-xl border-l-4 transition-all duration-300"></div>
+
+  <!-- Main View Container Routing -->
+  <main class="flex-grow max-w-7xl w-full mx-auto p-6 flex flex-col justify-center">
+
+    <!-- 1. HOME VIEW -->
+    <section id="home-view" class="view-panel space-y-16 py-12">
+      <div class="text-center max-w-3xl mx-auto space-y-6">
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
+          Claim Your Free Hosting <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 neon-glow">Server in Seconds</span>
+        </h1>
+        <p class="text-slate-400 text-base md:text-lg">
+          Deploy high-performance containerized architecture instances absolutely free. Locked via real-time network hardware identity verification protocols.
+        </p>
+        <div class="pt-4">
+          <button onclick="checkEligibilityAndRoute()" class="gradient-accent hover:opacity-90 text-slate-950 font-bold px-8 py-4 rounded-xl text-base tracking-wide transition shadow-lg shadow-cyan-500/20 transform hover:-translate-y-0.5">
+            Get Free Server Code
+          </button>
+        </div>
+      </div>
+
+      <!-- Trust Badges Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <div class="glass-card p-5 rounded-2xl text-center space-y-2">
+          <div class="text-cyan-400 text-xl">⏳</div>
+          <div class="font-semibold text-white text-sm">Instant Code</div>
+          <div class="text-xs text-slate-500">Automated structural minting</div>
+        </div>
+        <div class="glass-card p-5 rounded-2xl text-center space-y-2">
+          <div class="text-purple-400 text-xl">👤</div>
+          <div class="font-semibold text-white text-sm">One Claim Per User</div>
+          <div class="text-xs text-slate-500">Hardware locked protection</div>
+        </div>
+        <div class="glass-card p-5 rounded-2xl text-center space-y-2">
+          <div class="text-blue-400 text-xl">🛡️</div>
+          <div class="font-semibold text-white text-sm">Admin Verified</div>
+          <div class="text-xs text-slate-500">Manual review auditing queues</div>
+        </div>
+        <div class="glass-card p-5 rounded-2xl text-center space-y-2">
+          <div class="text-red-400 text-xl">🛑</div>
+          <div class="font-semibold text-white text-sm">Anti-Abuse System</div>
+          <div class="text-xs text-slate-500">Proactive proxy blocking filters</div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion Module -->
+      <div class="max-w-3xl mx-auto space-y-4 pt-12 border-t border-slate-900">
+        <h3 class="text-2xl font-bold text-center text-white mb-6">Frequently Asked Questions</h3>
+        <div class="glass-card p-5 rounded-xl space-y-2">
+          <h4 class="font-semibold text-cyan-400 text-sm">How does the free claim work?</h4>
+          <p class="text-xs text-slate-400">Generate a system validated voucher tag, submit parameters, use the generated key string inside standard node activation setups.</p>
+        </div>
+        <div class="glass-card p-5 rounded-xl space-y-2">
+          <h4 class="font-semibold text-cyan-400 text-sm">Why is only one claim allowed?</h4>
+          <p class="text-xs text-slate-400">To maintain resource availability allocations without sybil network exhaustion threats across standard computing hardware nodes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. CLAIM REQUEST FORM VIEW -->
+    <section id="claim-view" class="view-panel hidden max-w-md mx-auto w-full glass-card p-8 rounded-2xl space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="text-2xl font-bold text-white">Verification Identity Profile</h2>
+        <p class="text-xs text-slate-400">Provide accurate contact markers to issue authorization credentials.</p>
+      </div>
+      <form id="claim-form" onsubmit="handleClaimSubmit(event)" class="space-y-4">
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-400">Account Username</label>
+          <input type="text" id="claim-name" required class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-sm text-white focus:outline-none gradient-border-focus" placeholder="e.g. hdx_pioneer">
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-400">E-mail Delivery Address</label>
+          <input type="email" id="claim-email" required class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-sm text-white focus:outline-none gradient-border-focus" placeholder="you@domain.com">
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-400">Discord User ID Profile Reference</label>
+          <input type="text" id="claim-discord" required class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-sm text-white focus:outline-none gradient-border-focus" placeholder="username#0000 or global ID">
+        </div>
+        <button type="submit" class="w-full gradient-accent text-slate-950 font-bold p-3 rounded-lg text-sm tracking-wide transition hover:opacity-90 pt-3">
+          Generate Free Provisioning Token
+        </button>
+      </form>
+    </section>
+
+    <!-- 3. SUCCESS ACCREDITATION VIEW -->
+    <section id="success-view" class="view-panel hidden max-w-md mx-auto w-full glass-card p-8 rounded-2xl text-center space-y-6">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-3xl">✓</div>
+      <div class="space-y-2">
+        <h2 class="text-2xl font-bold text-white">Voucher Generated Successfully</h2>
+        <p class="text-xs text-slate-400">Your single-use cloud server validation parameters have been minted.</p>
+      </div>
+      <div class="bg-slate-950 p-4 rounded-xl border border-slate-900 flex items-center justify-between space-x-2">
+        <span id="rendered-code" class="font-mono text-2xl tracking-widest text-cyan-400 font-bold pl-2">--------</span>
+        <button onclick="copyCodeToClipboard()" class="text-xs bg-slate-900 border border-slate-800 text-slate-300 px-3 py-2 rounded-lg hover:bg-slate-800 active:scale-95 transition">Copy Code</button>
+      </div>
+      <p class="text-xs text-amber-400 bg-amber-500/5 border border-amber-500/10 p-3 rounded-lg">
+        ⚠️ Keep this code safe. It can be used once only, subject to manual administrative security validation checks.
+      </p>
+    </section>
+
+    <!-- 4. DUPLICATE ERROR EXCLUSION VIEW -->
+    <section id="duplicate-view" class="view-panel hidden max-w-md mx-auto w-full glass-card p-8 rounded-2xl text-center space-y-6">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-3xl">🛑</div>
+      <div class="space-y-2">
+        <h2 class="text-xl font-bold text-white">System Allocation Restriction</h2>
+        <p id="duplicate-err-msg" class="text-xs text-slate-400">You have already claimed a free server from this device or IP network cluster layout topology.</p>
+      </div>
+      <div id="duplicate-meta-box" class="hidden bg-slate-950 p-4 rounded-xl border border-slate-900 space-y-2 text-left text-xs">
+        <div class="flex justify-between"><span class="text-slate-500">Your Code:</span><span id="dup-code" class="font-mono font-bold text-cyan-400"></span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Queue Status:</span><span id="dup-status" class="capitalize font-bold"></span></div>
+      </div>
+      <button onclick="showView('home-view')" class="text-xs text-slate-400 underline hover:text-white">Return to Homepage Navigation</button>
+    </section>
+
+    <!-- 5. ADMIN AUTHENTICATION GATEWAY VIEW -->
+    <section id="admin-login-view" class="view-panel hidden max-w-sm mx-auto w-full glass-card p-8 rounded-2xl space-y-6">
+      <div class="text-center space-y-1">
+        <h2 class="text-xl font-bold text-white">Terminal Access Authentication</h2>
+        <p class="text-xs text-slate-500">Panel Profile Identifier: <span class="text-purple-400 font-mono">hdxcloudadmin</span></p>
+      </div>
+      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-400">System Core Password</label>
+          <input type="password" id="admin-password" required class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-sm text-white focus:outline-none gradient-border-focus">
+        </div>
+        <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold p-3 rounded-lg text-sm tracking-wide transition hover:opacity-90">
+          Decrypt Infrastructure Operations Access
+        </button>
+      </form>
+    </section>
+
+    <!-- 6. ADMINISTRATIVE OPERATIONS DASHBOARD PANELS -->
+    <section id="admin-dashboard-view" class="view-panel hidden space-y-6 w-full py-4">
+      <div class="flex justify-between items-center border-b border-slate-900 pb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">Central Operations Terminal</h2>
+          <p class="text-xs text-slate-400">Real-time resource request lifecycle metrics aggregation overview</p>
+        </div>
+        <button onclick="logOutAdmin()" class="text-xs bg-red-950/40 border border-red-900 text-red-400 px-3 py-1.5 rounded-md hover:bg-red-900/40 dynamic transition">Flush Auth Token Session</button>
+      </div>
+
+      <!-- Live Statistical Widgets Block -->
+      <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+        <div class="glass-card p-4 rounded-xl"><div class="text-xs text-slate-400">Claims Volume</div><div id="stat-total" class="text-xl font-bold text-white mt-1">-</div></div>
+        <div class="glass-card p-4 rounded-xl border-l-2 border-l-amber-500"><div class="text-xs text-slate-400">Pending Actions</div><div id="stat-pending" class="text-xl font-bold text-amber-400 mt-1">-</div></div>
+        <div class="glass-card p-4 rounded-xl border-l-2 border-l-emerald-500"><div class="text-xs text-slate-400">Approved Keys</div><div id="stat-approved" class="text-xl font-bold text-emerald-400 mt-1">-</div></div>
+        <div class="glass-card p-4 rounded-xl border-l-2 border-l-red-500"><div class="text-xs text-slate-400">Rejected Filters</div><div id="stat-rejected" class="text-xl font-bold text-red-400 mt-1">-</div></div>
+        <div class="glass-card p-4 rounded-xl border-l-2 border-l-cyan-500"><div class="text-xs text-slate-400">Activated Units</div><div id="stat-used" class="text-xl font-bold text-cyan-400 mt-1">-</div></div>
+        <div class="glass-card p-4 rounded-xl border-l-2 border-l-slate-500"><div class="text-xs text-slate-400">Banned IPs</div><div id="stat-blocked" class="text-xl font-bold text-slate-400 mt-1">-</div></div>
+      </div>
+
+      <!-- Core Operational Filters Interface Grid -->
+      <div class="flex flex-col md:flex-row gap-3 items-center justify-between bg-slate-900/40 p-3 rounded-xl border border-slate-900">
+        <input type="text" id="admin-search" oninput="filterAdminTable()" placeholder="Filter via client parameters, voucher IDs, network logs..." class="w-full md:max-w-md bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+        <select id="admin-filter-status" onchange="filterAdminTable()" class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs text-white focus:outline-none">
+          <option value="ALL">Show All Lifecycles</option>
+          <option value="pending">Pending Review Only</option>
+          <option value="approved">Approved Clearance</option>
+          <option value="rejected">Rejected Classifications</option>
+          <option value="used">Redeemed Nodes</option>
+        </select>
+      </div>
+
+      <!-- Datatable Data Pipeline Module Layer -->
+      <div class="glass-card rounded-xl overflow-hidden border border-slate-900">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-900 text-slate-400 font-semibold uppercase tracking-wider border-b border-slate-800">
+              <tr>
+                <th class="p-4">Ident Profile/Timestamp</th>
+                <th class="p-4">Voucher Key</th>
+                <th class="p-4">Network Node Logs</th>
+                <th class="p-4 text-center">Lifecycle Status</th>
+                <th class="p-4 text-right">Operational Actions Override Pipeline</th>
+              </tr>
+            </thead>
+            <tbody id="admin-claims-tbody" class="divide-y divide-slate-900 text-slate-300">
+              <!-- Dynamically populated tables execution context links -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. TERMS / ANTI-ABUSE VIEW -->
+    <section id="anti-abuse-view" class="view-panel hidden max-w-2xl mx-auto w-full glass-card p-8 rounded-2xl space-y-6">
+      <h2 class="text-2xl font-bold text-white border-b border-slate-900 pb-3">Anti-Abuse Engine Operational Policies</h2>
+      <p class="text-sm text-slate-400">To maintain optimal cloud bare-metal system architecture performance thresholds, the system enforces multi-layered device authorization validation mechanisms:</p>
+      <ul class="list-disc list-inside space-y-2 text-xs text-slate-400">
+        <li><strong class="text-cyan-400">Dynamic Canvas Footprint Hashing:</strong> Browser graphics hardware acceleration signatures compile localized validation parameters server-side. Changing user agents will not bypass tracking blocks.</li>
+        <li><strong class="text-purple-400">IPv4/IPv6 Topology Registration:</strong> IP addresses are mapped instantly against persistent validation indexes. Single subnets are restricted to isolated resource initialization permissions.</li>
+        <li><strong class="text-amber-400">Cryptographic JWT Session Scoping:</strong> Access pipelines enforce immutable payload state bindings to block programmatic submission scripts.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="border-t border-slate-900 bg-slate-950 py-6 text-center text-xs text-slate-600">
+    &copy; 2026 HDX Cloud Networks Inc. Secure Data Center Routing Architecture Pipeline Systems.
+  </footer>
+
+  <!-- Front-End System Application Scripts Logic -->
+  <script>
+    let currentToken = localStorage.getItem('hdx_admin_token') || null;
+    let localClaimsCache = [];
+
+    // Simple SPA Router Engine
+    function showView(viewId) {
+      document.querySelectorAll('.view-panel').forEach(view => view.classList.add('hidden'));
+      document.getElementById(viewId).classList.remove('hidden');
+      if(viewId === 'admin-dashboard-view') {
+        if(!currentToken) showView('admin-login-view');
+        else fetchAdminDashboardData();
+      }
+    }
+
+    // Dynamic Client Hardware Fingerprint Generator
+    function generateDeviceFingerprint() {
+      try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.textBaseline = "top";
+        ctx.font = "14px 'Arial'";
+        ctx.textBaseline = "alphabetic";
+        ctx.fillStyle = "#f60";
+        ctx.fillRect(125,1,62,20);
+        ctx.fillStyle = "#069";
+        ctx.fillText("HDXCloud,Fingerprint,Vector2026", 2, 15);
+        ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+        ctx.fillText("HDXCloud,Fingerprint,Vector2026", 4, 17);
+        
+        const b64 = canvas.toDataURL().replace("data:image/png;base64,", "");
+        let bin = atob(b64.slice(100, 200)), hash = 0;
+        for (let i = 0; i < bin.length; i++) {
+          hash = (hash << 5) - hash + bin.charCodeAt(i);
+          hash |= 0;
+        }
+        return 'FPV2-' + Math.abs(hash) + '-' + navigator.userAgent.replace(/[^a-zA-Z0-9]/g, "").slice(0, 20);
+      } catch (e) {
+        return 'FPV2-FALLBACK-' + navigator.hardwareConcurrency + '-' + screen.colorDepth;
+      }
+    }
+
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('global-toast');
+      toast.innerText = msg;
+      toast.className = `fixed bottom-5 right-5 z-50 px-5 py-3 rounded-xl glass-card text-sm shadow-xl border-l-4 transition-all duration-300 ${type === 'success' ? 'border-emerald-500 text-emerald-400' : 'border-red-500 text-red-400'}`;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 4000);
+    }
+
+    // Eligibility Pipeline Guard Verification Flow
+    async function checkEligibilityAndRoute() {
+      const fingerprint = generateDeviceFingerprint();
+      try {
+        const res = await fetch('/api/check-eligibility', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fingerprint })
+        });
+        const data = await res.json();
+        
+        if (data.eligible) {
+          showView('claim-view');
+        } else {
+          if (data.reason === 'duplicate') {
+            document.getElementById('dup-code').innerText = data.code;
+            document.getElementById('dup-status').innerText = data.status;
+            
+            // Apply accurate contextual color styles dynamically
+            const sColors = { pending: 'text-amber-400', approved: 'text-emerald-400', rejected: 'text-red-400', used: 'text-cyan-400' };
+            document.getElementById('dup-status').className = `capitalize font-bold ${sColors[data.status] || 'text-white'}`;
+            
+            document.getElementById('duplicate-meta-box').classList.remove('hidden');
+            document.getElementById('duplicate-err-msg').innerText = "You have already generated an infrastructure allocation profile under this node cluster config framework identification profile.";
+          } else {
+            document.getElementById('duplicate-meta-box').classList.add('hidden');
+            document.getElementById('duplicate-err-msg').innerText = "Access from your structural network location parameters has been blacklisted by management system security guards.";
+          }
+          showView('duplicate-view');
+        }
+      } catch (e) {
+        showToast('Target configuration connection system execution error.', 'error');
+      }
+    }
+
+    // Submit user information to generate a code
+    async function handleClaimSubmit(e) {
+      e.preventDefault();
+      const fingerprint = generateDeviceFingerprint();
+      const payload = {
+        name: document.getElementById('claim-name').value.trim(),
+        email: document.getElementById('claim-email').value.trim(),
+        discord_id: document.getElementById('claim-discord').value.trim(),
+        fingerprint
+      };
+
+      try {
+        const res = await fetch('/api/claim', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          document.getElementById('rendered-code').innerText = data.code;
+          showView('success-view');
+        } else {
+          showToast(data.error || 'Server error occurred processing application data records.', 'error');
+        }
+      } catch (err) {
+        showToast('Failed to establish database transmission stream sync pipelines.', 'error');
+      }
+    }
+
+    function copyCodeToClipboard() {
+      const code = document.getElementById('rendered-code').innerText;
+      navigator.clipboard.writeText(code);
+      showToast('Infrastructure provision token code saved to buffer clipboard memory.');
+    }
+
+    /* ================= FRONT-END ADMIN MODULES CONTROLLERS ================= */
+
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const password = document.getElementById('admin-password').value;
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: 'hdxcloudadmin', password })
+        });
+        const data = await res.json();
+        if(res.ok && data.token) {
+          currentToken = data.token;
+          localStorage.setItem('hdx_admin_token', currentToken);
+          showToast('Administrative operational clear identity tokens decrypted.');
+          showView('admin-dashboard-view');
+        } else {
+          showToast(data.error || 'Identity rejection processing authentication credentials.', 'error');
+        }
+      } catch(err) {
+        showToast('Authentication network transport stack pipeline failure.', 'error');
+      }
+    }
+
+    function logOutAdmin() {
+      currentToken = null;
+      localStorage.removeItem('hdx_admin_token');
+      showView('home-view');
+      showToast('Administrative console authorization keys flushed.');
+    }
+
+    async function fetchAdminDashboardData() {
+      if(!currentToken) return;
+      try {
+        const headers = { 'Authorization': `Bearer ${currentToken}` };
+        
+        // Parallelized processing network synchronization
+        const [statsRes, claimsRes] = await Promise.all([
+          fetch('/api/admin/stats', { headers }),
+          fetch('/api/admin/claims', { headers })
+        ]);
+
+        if(statsRes.status === 401 || statsRes.status === 403) return logOutAdmin();
+
+        const stats = await statsRes.json();
+        localClaimsCache = await claimsRes.json();
+
+        // Render Stats Units
+        document.getElementById('stat-total').innerText = stats.total;
+        document.getElementById('stat-pending').innerText = stats.pending;
+        document.getElementById('stat-approved').innerText = stats.approved;
+        document.getElementById('stat-rejected').innerText = stats.rejected;
+        document.getElementById('stat-used').innerText = stats.used;
+        document.getElementById('stat-blocked').innerText = stats.blocked;
+
+        renderAdminTable(localClaimsCache);
+      } catch (e) {
+        showToast('Telemetry system retrieval interface error occurred.', 'error');
+      }
+    }
+
+    function renderAdminTable(records) {
+      const tbody = document.getElementById('admin-claims-tbody');
+      tbody.innerHTML = '';
+
+      if(records.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-500">No matching system authorization requests found matching system parameters.</td></tr>`;
+        return;
+      }
+
+      records.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-900/30 transition duration-150";
+
+        // Status Badge Styling Computation Mapping Array
+        const badges = {
+          pending: '<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Pending</span>',
+          approved: '<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Approved</span>',
+          rejected: '<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-red-500/10 text-red-400 border border-red-500/20">Rejected</span>',
+          used: '<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Used</span>'
+        };
+
+        tr.innerHTML = `
+          <td class="p-4 space-y-1">
+            <div class="font-bold text-white text-sm">${escapeHTML(r.name)}</div>
+            <div class="text-slate-400">${escapeHTML(r.email)}</div>
+            <div class="text-[10px] text-purple-400 font-mono">${escapeHTML(r.discord_id)}</div>
+            <div class="text-[9px] text-slate-600">${r.created_at}</div>
+          </td>
+          <td class="p-4 font-mono font-bold text-sm text-cyan-400 tracking-wider">${r.code}</td>
+          <td class="p-4 space-y-1">
+            <div class="text-slate-300 font-mono text-[11px]">${r.ip_address}</div>
+            <div class="text-[9px] text-slate-600 font-mono truncate max-w-[180px]" title="${escapeHTML(r.device_fingerprint)}">${escapeHTML(r.device_fingerprint)}</div>
+          </td>
+          <td class="p-4 text-center">${badges[r.status] || r.status}</td>
+          <td class="p-4 text-right space-y-1.5 whitespace-nowrap">
+            <div class="space-x-1">
+              <button onclick="executeAction('${r.code}', 'update-status', 'approved')" class="bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-800 text-emerald-400 px-2 py-1 rounded text-[10px] font-medium transition">Approve</button>
+              <button onclick="executeAction('${r.code}', 'update-status', 'rejected')" class="bg-red-950/60 hover:bg-red-900 border border-red-800 text-red-400 px-2 py-1 rounded text-[10px] font-medium transition">Reject</button>
+              <button onclick="executeAction('${r.code}', 'update-status', 'used')" class="bg-cyan-950/60 hover:bg-cyan-900 border border-cyan-800 text-cyan-400 px-2 py-1 rounded text-[10px] font-medium transition">Mark Used</button>
+            </div>
+            <div class="space-x-1">
+              <button onclick="executeAction('${r.ip_address}', 'block-ip')" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-400 px-2 py-1 rounded text-[10px] font-medium transition">Ban Network IP</button>
+              <button onclick="executeAction('${r.code}', 'delete-record')" class="bg-red-600 hover:bg-red-500 text-slate-950 font-bold px-2 py-1 rounded text-[10px] transition">Purge</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function executeAction(target, endpoint, statusParam = null) {
+      if(!confirm(`Confirm operation action dispatch targeting marker: ${target}`)) return;
+      
+      let url = `/api/admin/${endpoint}`;
+      let body = { code: target };
+      if(endpoint === 'update-status') body.status = statusParam;
+      if(endpoint === 'block-ip') body = { ip_address: target };
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${currentToken}`
+          },
+          body: JSON.stringify(body)
+        });
+        const data = await res.json();
+        if(res.ok && data.success) {
+          showToast('Administrative mutations committed downstream successfully.');
+          fetchAdminDashboardData();
+        } else {
+          showToast(data.error || 'Downstream structural pipeline execution error.', 'error');
+        }
+      } catch(e) {
+        showToast('Administrative sync mutation request transmission failure.', 'error');
+      }
+    }
+
+    function filterAdminTable() {
+      const searchVal = document.getElementById('admin-search').value.toLowerCase();
+      const statusFilter = document.getElementById('admin-filter-status').value;
+
+      const filtered = localClaimsCache.filter(r => {
+        const matchesSearch = r.name.toLowerCase().includes(searchVal) || 
+                              r.email.toLowerCase().includes(searchVal) || 
+                              r.code.includes(searchVal) || 
+                              r.ip_address.includes(searchVal) || 
+                              r.discord_id.toLowerCase().includes(searchVal);
+        const matchesStatus = (statusFilter === 'ALL') || (r.status === statusFilter);
+        return matchesSearch && matchesStatus;
+      });
+
+      renderAdminTable(filtered);
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    // Auto Session Token Bootstrap Check Initialization
+    if (currentToken) {
+      // Retain verification session automatically if token parameters are cached
+    }
+  </script>
+</body>
+</html>
